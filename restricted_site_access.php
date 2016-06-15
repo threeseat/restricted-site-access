@@ -139,11 +139,11 @@ class Restricted_Site_Access {
 
 			// iterate through the allow list
 			foreach( self::$rsa_options['allowed'] as $line ) {
-				list( $ip, $mask ) = explode( '/', $line . '/128' ); // get the ip and mask from the list
+				list( $ip, $subnet ) = explode( '/', $line . '/128' ); // get the ip and subnet from the list
 
-				$mask = str_repeat( 'f', $mask >> 2 ); //render the mask as bits, similar to info on the php.net man page discussion for inet_pton
+				$mask = str_repeat( 'f', $subnet >> 2 ); //render the mask as bits, similar to info on the php.net man page discussion for inet_pton
 
-				switch( $mask % 4 ) {
+				switch( $subnet % 4 ) {
 					case 1:
 						$mask .= '8';
 						break;
